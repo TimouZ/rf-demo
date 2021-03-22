@@ -3,7 +3,7 @@ Documentation     https://www.aihitdata.com/ scraping robot
 Resource          resource.robot
 
 *** Test Cases ***
-Valid Login
+Scrape Data
     Open Browser To Welcome Page
     Go To Login Page
     Input Email     timuzlov@gmail.com
@@ -14,5 +14,7 @@ Valid Login
     Expand Filters
     Check Boxes
     Start Search
-    Click Download
-    Input FileName      Results
+    Click Download Button
+    Input FileName
+    Pass reCaptcha
+    Click reCaptcha Download Button

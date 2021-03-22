@@ -1,9 +1,5 @@
 *** Settings ***
 Documentation     A resource file with reusable keywords and variables.
-...
-...               The system specific keywords created here form our own
-...               domain specific language. They utilize keywords provided
-...               by the imported SeleniumLibrary.
 Library           SeleniumLibrary
 
 *** Variables ***
@@ -14,7 +10,8 @@ ${VALID EMAIL}     demo
 ${VALID PASSWORD}    mode
 ${WELCOME URL}    https://${SERVER}/
 ${LOGIN URL}      https://${SERVER}/login?next=https%3A//www.aihitdata.com/
-${ERROR URL}      https://${SERVER}
+${FILE NAME}      Result
+
 
 *** Keywords ***
 Open Browser To Welcome Page
@@ -64,12 +61,19 @@ Check Boxes
     Select Checkbox     hasAddress
 
 Start Search
-    Click Button    Search
+    Click Button        Search
 
-Click Download
-    Click Button    Download
+Click Download Button
+    Wait Until Page Contains    Download    timeout=20
+    Click Element      xpath://*[contains(text(), "Download")]
 
 Input FileName
-    [Arguments]    ${file_name}
-    Input Text    password    ${file_name}
+    Input Text    filename      ${FILE NAME}
+
+Pass reCaptcha
+    Click Element At Coordinates       class:g-recaptcha    xoffset=10  yoffset=10
+
+Click reCaptcha Download Button
+    Wait Until Element Is Enabled    DOWNLOAD    timeout=60
+    Click Button      xpath://*[contains(text(), "DOWNLOAD")]
 
